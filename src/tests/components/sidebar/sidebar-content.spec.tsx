@@ -56,6 +56,16 @@ describe('SidebarContent', () => {
       expect(screen.getByText(input[0].title)).toBeInTheDocument();
       expect(screen.getAllByRole('paragraph')).toHaveLength(input.length);
     });
+
+    it('should be able to search prompts', async () => {
+      const text = 'AI';
+      makeSut();
+      const searchInput = screen.getByPlaceholderText('Buscar prompts...');
+
+      await user.type(searchInput, text);
+
+      expect(searchInput).toHaveValue(text);
+    });
   });
 
   describe('Collapse / Expand', () => {
@@ -78,7 +88,6 @@ describe('SidebarContent', () => {
 
     it('should collapse and show expand button', async () => {
       makeSut();
-
       const collapseButton = screen.getByRole('button', {
         name: /minimizar sidebar/i,
       });
@@ -89,7 +98,6 @@ describe('SidebarContent', () => {
         name: /expandir sidebar/i,
       });
       expect(expandButton).toBeInTheDocument();
-
       expect(collapseButton).not.toBeInTheDocument();
     });
   });
@@ -97,7 +105,6 @@ describe('SidebarContent', () => {
   describe('New Prompt Button', () => {
     it('should navigate to new prompt page when clicked', async () => {
       makeSut();
-
       const newButton = screen.getByRole('button', { name: 'Novo prompt' });
 
       await user.click(newButton);
