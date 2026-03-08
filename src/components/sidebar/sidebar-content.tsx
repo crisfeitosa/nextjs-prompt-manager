@@ -11,7 +11,17 @@ import { useState } from 'react';
 import { Logo } from '../logo';
 import { Button } from '../ui/button';
 
-export const SidebarContent = () => {
+type Prompt = {
+  id: string;
+  title: string;
+  content: string;
+};
+
+export type SiderbarContentProps = {
+  prompts: Prompt[];
+};
+
+export const SidebarContent = ({ prompts }: SiderbarContentProps) => {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -76,6 +86,10 @@ export const SidebarContent = () => {
           </div>
         </section>
       )}
+
+      {prompts.map((prompt) => (
+        <p key={prompt.id}>{prompt.title}</p>
+      ))}
     </aside>
   );
 };
