@@ -7,7 +7,7 @@ import {
   X as CloseButton,
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, startTransition } from 'react';
 import { Logo } from '../logo';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -25,11 +25,22 @@ export type SiderbarContentProps = {
 export const SidebarContent = ({ prompts }: SiderbarContentProps) => {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [query, setQuery] = useState('');
 
   const collapsedSidebar = () => setIsCollapsed(true);
   const expandSidebar = () => setIsCollapsed(false);
 
   const handleNewPrompt = () => router.push('/new');
+
+  const handleQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newQuery = event.target.value;
+    setQuery(newQuery);
+
+    startTransition(() => {
+      const url = newQuery ? `/?q=${encodeURIComponent(newQuery)}` : '/';
+      router.push(url, { scroll: false });
+    });
+  };
 
   return (
     <aside
@@ -86,6 +97,8 @@ export const SidebarContent = ({ prompts }: SiderbarContentProps) => {
                 type="text"
                 placeholder="Buscar prompts..."
                 autoFocus
+                value={query}
+                onChange={handleQueryChange}
               />
             </form>
           </section>
