@@ -1,7 +1,7 @@
 pre-commit:
   commands:
     check:
-      run: yarn format {staged_files}
+      run: /bin/zsh -l -c "pnpm format {staged_files}"
       glob: '*.{js,jsx,.mjs,ts,tsx,css,json,md}'
       stage_fixed: true
 
@@ -9,7 +9,10 @@ pre-push:
   commands:
     validate:
       glob: '*.{ts,tsx}'
-      run: yarn typecheck
+      run: /bin/zsh -l -c "pnpm typecheck"
     lint:
       glob: '*.{ts,tsx}'
-      run: yarn lint
+      run: /bin/zsh -l -c "pnpm lint"
+    test:
+      glob: '*.{ts,tsx}'
+      run: /bin/zsh -l -c "pnpm test:coverage"
