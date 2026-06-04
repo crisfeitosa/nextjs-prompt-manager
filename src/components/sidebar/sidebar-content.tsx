@@ -22,11 +22,11 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { Spinner } from '../ui/spinner';
 
-export type SiderbarContentProps = {
+export type SidebarContentProps = {
   prompts: PromptSummary[];
 };
 
-export const SidebarContent = ({ prompts }: SiderbarContentProps) => {
+export const SidebarContent = ({ prompts }: SidebarContentProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
