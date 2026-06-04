@@ -9,7 +9,13 @@ import {
   X as CloseButton,
 } from 'lucide-react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, startTransition, useActionState, useRef } from 'react';
+import {
+  useState,
+  startTransition,
+  useActionState,
+  useRef,
+  useEffect,
+} from 'react';
 import { Logo } from '../logo';
 import { PromptList } from '../prompts';
 import { Button } from '../ui/button';
@@ -55,6 +61,11 @@ export const SidebarContent = ({ prompts }: SiderbarContentProps) => {
       formRef.current?.requestSubmit();
     });
   };
+
+  useEffect(() => {
+    if (!hasQuery) return;
+    formRef.current?.requestSubmit();
+  }, [hasQuery]);
 
   return (
     <aside
